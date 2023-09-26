@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "university-project-5b6c7": {
+      "hosting": {
+        "university-backend": [
+          "university-project-5b6c7"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "university-project-5b6c7"
+  }
+}

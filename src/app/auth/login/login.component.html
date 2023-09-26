@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card p-5 shadow-effect bg-secondary-theme">
+        <div class="card-body">
+          <div class="text-center">
+            <h3 class="text-theme-primary">Login</h3>
+            <p>Please login</p>
+          </div>
+
+          <!-- in order to store user'data from input field we must create a variable inside the form element and pass into ngFrom
+                        and each input element must declare a name so that we can combine those value to submit in ngForm -->
+          <form #loginForm="ngForm"  (ngSubmit)="onSubmit(loginForm.value)">
+            <div class="form-group">
+              <input
+                type="email"
+                class="form-control"
+                required=""
+                email=""
+                placeholder="Email"
+                name="email"
+                #Email = 'ngModel'
+                [ngClass]="{'is-invalid':Email.touched && Email.invalid }"
+                ngModel
+              />
+              <div class="alert alert-danger" *ngIf="Email.touched && Email.invalid">
+                <div *ngIf = " Email.errors?.['required'] "> email must fill </div>
+                <div *ngIf = " Email.errors?.['email'] "> please enter an email </div>
+              </div>
+            </div>
+            <div class="form-group mt-2">
+              <input
+                type="password"
+                required=""
+                password
+                class="form-control"
+                placeholder="Password"
+                name="password"
+                #Password = 'ngModel'
+                [ngClass]="{'is-invalid': Password.touched && Password.invalid }"
+                ngModel
+              />
+              <div class="alert alert-danger" *ngIf="Password.touched && Password.invalid">
+                <div *ngIf = " Password.errors?.['required'] "> password must fill </div>
+                <div *ngIf = " Password.errors?.['password'] "> please enter your motherfucking password </div>
+              </div>
+            </div>
+            <button class="btn btn-theme mt-2" [disabled]= " loginForm.invalid">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3"></div>
+  </div>
+</div>
