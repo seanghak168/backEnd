@@ -17,7 +17,7 @@ export class CategoriesService implements OnInit {
 
   saveData(data: any) {
 
-    this.afs.collection('items').add(data).then(docref => {
+    this.afs.collection('categories').add(data).then(docref => {
       
       this.toastr.success('Data Inserted Successfully...!');
     }).catch(err => {console.log(err)});
@@ -36,7 +36,7 @@ export class CategoriesService implements OnInit {
 
   // to upload users data we use this method and write query inside this method to get their data and display on UI
   loadData() {
-    return this.afs.collection('items', (ref) => ref.orderBy('category')).snapshotChanges().pipe(
+    return this.afs.collection('categories', (ref) => ref.orderBy('category')).snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -52,7 +52,7 @@ export class CategoriesService implements OnInit {
   // updating method goes down below
   updateData(  id: any , EditData: any) {
 
-    this.afs.collection('items').doc(id).update(EditData).then(docRef => {
+    this.afs.collection('categories').doc(id).update(EditData).then(docRef => {
       this.toastr.success('Data Updated Successfully...!');
     })
   }
@@ -67,7 +67,7 @@ export class CategoriesService implements OnInit {
 
   deleteData( id: any) {
 
-    this.afs.collection('items').doc(id).delete().then(docRef => {
+    this.afs.collection('categories').doc(id).delete().then(docRef => {
       this.toastr.success('Data Deleted!');
     })
   }
