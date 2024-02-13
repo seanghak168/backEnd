@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -10,7 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { PostsService } from 'src/app/services/posts.service';
-
+interface PassportFile {
+  file: File;
+  preview: string;
+}
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
@@ -19,8 +22,11 @@ import { PostsService } from 'src/app/services/posts.service';
 export class NewPostComponent implements OnInit {
   permilink: string = '';
   imgSrc: any = './assets/placeholder-image.png';
-  selectedImg: any;
+  selectedImg: any[]= [];
 
+  @ViewChild('attachment')
+  photoFile1!: ElementRef;
+  
   item: any[] = [];
   post: any;
 
@@ -37,45 +43,7 @@ export class NewPostComponent implements OnInit {
     private path: PostsService,
     private route: ActivatedRoute
   ) {
-    // =============================================================================
 
-    // this.route.queryParams.subscribe(val => {
-    //   this.docId = val['id'];
-    //   this.path.loadOneData(val['id']).subscribe(post => {
-    //     this.post = post;
-    //     this.postForm = new FormGroup({
-
-    //       okay: this.fb.group({
-
-    //                 title: new FormControl([ this.post.title , [Validators.required, Validators.minLength(10)]]),
-    //               // title: [ this.post.title , [Validators.required, Validators.minLength(10)]],
-
-    //                 permalink: new FormControl([this.post.permalink , Validators.required,]),
-    //               // permalink: [this.post.permalink , Validators.required,],
-
-    //               excerpt: new FormControl([ this.post.excerpt , [Validators.required, Validators.minLength(50)]]),
-    //               // excerpt: [ this.post.excerpt , [Validators.required, Validators.minLength(50)]],
-
-    //               category: new FormControl([ `${this.post.category.categoryId}-${this.post.category.category}` ,  Validators.required]),
-    //               // category: [ `${this.post.category.categoryId}-${this.post.category.category}` ,  Validators.required],
-
-    //               postImg: new FormControl([ '' , Validators.required]),
-    //               // postImg: [ '' , Validators.required],
-
-    //               content: new FormControl([ this.post.content , Validators.required]),
-    //               // content: [ this.post.content , Validators.required],
-    //             })
-
-    //     })
-    //     console.log(this.postForm.value);
-
-    //     this.imgSrc = this.post.postImgPath;
-    //     this.formStatus = 'Edit';
-    //   })
-    // })
-
-    // ================================================================================
-    // ================================================================================
 
     this.route.queryParams.subscribe((val) => {
       this.docId = val['id'];
@@ -84,7 +52,6 @@ export class NewPostComponent implements OnInit {
         // console.log(post);
 
         this.post = post;
-        console.log(post);
 
         this.postForm = this.fb.group({
           title: [
@@ -111,35 +78,42 @@ export class NewPostComponent implements OnInit {
         }
       });
     });
-
-    // ================================================================================
-    // ================================================================================
-
-    // this.postForm = new FormGroup({
-    //   this: fb.group({
-    //           title: [ this.post.title , [Validators.required, Validators.minLength(10)]],
-    //           permalink: [this.post.permalink , Validators.required,],
-    //           excerpt: [ this.post.excerpt , [Validators.required, Validators.minLength(50)]],
-    //           category: [ `${this.post.category.categoryId}-${this.post.category.category}` ,  Validators.required],
-    //           postImg: [ '' , Validators.required],
-    //           content: [ this.post.content , Validators.required],
-    //         })
-    // })
-
-    // this.postForm = this.fb.group({
-    //   title: [ this.post.title , [Validators.required, Validators.minLength(10)]],
-    //     permalink: [this.post.permalink , Validators.required,],
-    //     excerpt: [ this.post.excerpt , [Validators.required, Validators.minLength(50)]],
-    //     category: [ `${this.post.category.categoryId}-${this.post.category.category}` ,  Validators.required],
-    //     postImg: [ '' , Validators.required],
-    //     content: [ this.post.content , Validators.required],
-    // });
   }
 
   ngOnInit(): void {
     this.categoryService.loadData().subscribe((val) => {
       this.item = val;
     });
+  }
+
+  onSelectedImage(event: any) {
+    const files = event.target.files;
+
+    const fileLength = files.length;
+    const maxSize = 200 * 1024 * 1024; // 200MB
+
+    if (this.selectedImg?.length + fileLength > 10) {
+      // this.showAddImage = false;
+      return;
+    }
+    for (let file of files) {
+      const fileSize = file.size;
+      const reader = new FileReader();
+      if (fileSize > maxSize) {
+        alert('File must be smaller than 200MB');
+        continue;
+      }
+      reader.onload = (e) => {
+        const passport: PassportFile = {
+          file: file,
+          preview: e.target?.result as string,
+        };
+        this.selectedImg?.push(passport);
+        this.imgSrc = passport.preview;
+        // this.isNotShow = true;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   get fc() {
@@ -152,17 +126,7 @@ export class NewPostComponent implements OnInit {
     const title = $event.target.value;
     this.permilink = title.replace(/\s/g, '-');
   }
-  //======================================>
 
-  showPreview($event: any) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      this.imgSrc = e.target?.result;
-    };
-
-    reader.readAsDataURL($event.target.files[0]);
-    this.selectedImg = $event.target.files[0];
-  }
   setDisabledState(disabled: boolean) {
     this.isDisabled = disabled;
   }
@@ -179,7 +143,7 @@ export class NewPostComponent implements OnInit {
         category: splitted[1],
       },
       excerpt: this.postForm.value.excerpt,
-      postImgPath: '',
+      postImgPath: [],
       content: this.postForm.value.content,
       isFeatured: false,
       views: 0,
@@ -190,8 +154,11 @@ export class NewPostComponent implements OnInit {
       keywords: this.splitString(this.postForm.value.title),
     };
 
-    console.log(postData);
 
+
+    // console.log(postData);
+    console.log(this.selectedImg, 'hello');
+    
     this.path.uploadImg(
       this.selectedImg,
       postData,
@@ -210,4 +177,6 @@ export class NewPostComponent implements OnInit {
     }
     return tempArray;
   }
+
+
 }

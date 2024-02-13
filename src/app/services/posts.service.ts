@@ -22,31 +22,35 @@ export class PostsService {
     return this.afs.createId();
   }
 
-  uploadImg(selectedImg: any, postdata: any, formStatus: any, id: any) {
-    const filePath = `postIMG/${Date.now()}`;
-    // console.log('save data');
-    this.storage
-      .upload(filePath, selectedImg)
-      .then(() => {
-        this.storage
-          .ref(filePath)
-          .getDownloadURL()
-          .subscribe((URL) => {
-            postdata.postImgPath = URL;
-            // console.log(postdata);
-            if (formStatus == 'Edit') {
-              console.log('edit');
-              this.updateData(id, postdata);
-            } else {
-              console.log('save');
-              this.saveData(postdata);
-            }
-          });
+  uploadImg(selectedImg: any[], postdata: any, formStatus: any, id: any) {
+    const promises = selectedImg?.map((img, index) => {
+      const filePath = `postIMG/${Date.now()}_${index}`;
+      return this.storage
+        .upload(filePath, img)
+        .then(() => {
+          return this.storage
+            .ref(filePath)
+            .getDownloadURL()
+            .toPromise();
+        });
+    });
+  
+    Promise.all(promises)
+      .then((urls) => {
+        postdata.postImgPath = urls;
+        if (formStatus == 'Edit') {
+          console.log('edit');
+          this.updateData(id, postdata);
+        } else {
+          console.log('save');
+          this.saveData(postdata);
+        }
       })
       .catch((e) => {
         console.log(e);
       });
   }
+  
 
   saveData(postData: any) {
     this.afs

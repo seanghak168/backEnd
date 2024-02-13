@@ -10,7 +10,7 @@ export interface Post {
     locationID: string;
     location: string;
   }
-  postImgPath: string;
+  postImgPath: [];
   excerpt: string;
   content: string;
   isFeatured: boolean;

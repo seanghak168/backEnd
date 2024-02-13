@@ -3,9 +3,9 @@
     <div class="col-md-12 text-center">
       <h3 class="text-theme-primary">{{ formStatus }} Post</h3>
       <p class="mb-5">{{ formStatus }} post</p>
-       
 
-      
+
+
 
     </div>
   </div>
@@ -117,7 +117,7 @@
             <label for=""> Post Image</label>
             <img [src]="imgSrc" class="form-control img-fluid img-preview shadow-effect" />
             <input type="file" formControlName="postImg" class="form-control shadow-effect" accept="image/*"
-              (change)="showPreview($event)" [ngClass]="{
+              (change)="onSelectedImage($event)" [ngClass]="{
                 'is-invalid':
                   postForm.controls['postImg'].touched &&
                   postForm.controls['postImg'].invalid

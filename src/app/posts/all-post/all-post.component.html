@@ -53,8 +53,8 @@
                 </td>
                 <td width="10">{{ post.data.title }}</td>
                 <!-- <td width="10" class="h-5">{{ post.data.excerpt }}</td> -->
-                <td>{{ post.data.category.category }}</td>
-                <td>{{ post.data.createAt.toMillis() | date }}</td>
+                <td>{{ post.data?.category?.category }}</td>
+                <td>{{ post.data?.createAt?.toMillis() | date }}</td>
                 <td>
                   <button
                     class="btn btn-sm btn-warning"
