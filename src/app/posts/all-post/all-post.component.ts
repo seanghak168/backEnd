@@ -16,7 +16,7 @@ export class AllPostComponent implements OnInit {
   ngOnInit(): void {
     this.postServ.loadImgage().subscribe((val) => {
       this.postArray = val;
-      console.log(this.postArray);
+      console.log(this.postArray, 'hello');
     });
   }
 

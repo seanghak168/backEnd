@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12 bg-secondary-theme p-5 shadow-effect">
-      <h3 class="text-center text-theme-primry">{{formStatus}} location</h3>
-      <p class="text-center mb-5">You can add new location from here...</p>
+      <h3 class="text-center text-theme-primry">{{formStatus}} category</h3>
+      <p class="text-center mb-5">You can add new category from here...</p>
       <form
         class="form-inline text-center"
         #categoryForm= "ngForm"
@@ -13,7 +13,7 @@
             type="text"
             name="category"
             class="form-control shadow-effect"
-            placeholder="Add new location"
+            placeholder="Add new category"
             #newCategory= 'ngModel'
             [(ngModel)] = 'formItem'
             required
@@ -32,7 +32,7 @@
             class="btn btn-block btn-info mb-2 btn-theme shadow-effect"
             [disabled] = " categoryForm.invalid "
           >
-            {{formStatus}} location
+            {{formStatus}} category
           </button>
         </div>
       </form>
@@ -51,7 +51,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Location</th>
+                <th>category</th>
                 <th>Action</th>
               </tr>
             </thead>

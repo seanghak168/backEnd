@@ -46,10 +46,11 @@
                 <td > <div  *ngIf="searchValue === '' || post.data.category.category.includes(searchValue)" ></div></td>
                 <td width="10">{{ i + 1 }}</td>
                 <td width="200">
-                  <img
-                    src="{{ post.data.postImgPath }}"
-                    class="img img-fluid"
-                  />
+                 
+                    <img
+                      src="{{ post?.data?.postImgPath[0] }}"
+                      class="img img-fluid"
+                    />
                 </td>
                 <td width="10">{{ post.data.title }}</td>
                 <!-- <td width="10" class="h-5">{{ post.data.excerpt }}</td> -->

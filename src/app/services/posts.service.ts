@@ -23,7 +23,8 @@ export class PostsService {
   }
 
   uploadImg(selectedImg: any[], postdata: any, formStatus: any, id: any) {
-    const promises = selectedImg?.map((img, index) => {
+    const promises = selectedImg?.map((passport, index) => {
+      const img = passport.file; // Accessing the File object
       const filePath = `postIMG/${Date.now()}_${index}`;
       return this.storage
         .upload(filePath, img)
@@ -50,6 +51,7 @@ export class PostsService {
         console.log(e);
       });
   }
+  
   
 
   saveData(postData: any) {
