@@ -11,12 +11,14 @@ export class HeaderComponent implements OnInit
 {
   
   userEmail: string = '';
+  userName : string = '';
   isLoggedIn$!: Observable<boolean>;
   constructor ( private auth: AuthService) {}
 
   ngOnInit(): void {
     
    this.userEmail = JSON.parse (localStorage.getItem('user') || '{}').email;
+  
    this.isLoggedIn$ = this.auth.isLoggedIn();
   }
   

@@ -28,7 +28,7 @@ export class AuthService {
         this.route.navigate(['/']);
       })
       .catch((err) => {
-        this.toast.warning('Khos ai pek');
+        this.toast.warning('Wrong Email or password');
         // console.log(err);
       });
   }
@@ -50,7 +50,7 @@ export class AuthService {
 
   logOut() {
     this.afAuth.signOut().then(() =>{
-      this.toast.success('log jenh ai pek');
+      this.toast.success('Logout Successfully');
       localStorage.removeItem('user');
       this.loggedIn.next(false);
       this.isLoggedInGuard = false;

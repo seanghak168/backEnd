@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
     if (this.authSev.isLoggedInGuard) {
       return true;
     } else {
-      this.toastr.warning('You can not access this page!');
+      // this.toastr.warning('You can not access this page!');
       this.route.navigate(['/login']);
       return false;
     }
