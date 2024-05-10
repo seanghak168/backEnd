@@ -10,23 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent {
 
   constructor (private login: AuthService, private route: Router) {}
-
-  // onSubmit(value: any) {
-  //    console.log(value);
-  //   //  const userData = Object;
-  //    const log = this.login.loginOne(value);
-  //    console.log(log);
-  //    this.route.navigate(['/']);
-     
-  // }
-
   onSubmit(value: any) {
-    // console.log(value);
-
     const log = this.login.login(value);
     console.log(log);
-    
  }
-
-
 }

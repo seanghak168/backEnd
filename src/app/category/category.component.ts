@@ -20,8 +20,6 @@ export class CategoryComponent implements OnInit {
 
   itemId: string = '';
 
-
-
   constructor( private categoryService: CategoriesService ) {}
   
   ngOnInit(): void { 
@@ -56,47 +54,5 @@ export class CategoryComponent implements OnInit {
 
   onDelete (id: any) {
     this.categoryService.deleteData(id);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // const subCategoryData = {
-    //   subCategory: 'subCategory1',
-    // };
-    // this.fire
-    //   .collection('categories')
-    //   .add(categoryData)
-    //   .then((docRef) => {
-    //     console.log(docRef);
-
-    //     // this.fire.doc(`categories/${docRef.id}`).collection('subCategory').add(subCategoryData)
-    //     this.fire
-    //       .collection('categories')
-    //       .doc(docRef.id)
-    //       .collection('subCategory')
-    //       .add(subCategoryData)
-    //       .then(docRef1 => {
-    //         console.log(docRef1);
-    //       });
-
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  
+  }  
 }

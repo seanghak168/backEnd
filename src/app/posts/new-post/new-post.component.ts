@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { disableDebugTools } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -149,13 +148,8 @@ export class NewPostComponent implements OnInit {
       views: 0,
       status: 'new',
       createAt: new Date(),
-      // object: Array.from(this.postForm.value.title)
-      // keywords: [...this.splitString(this.postForm.value.title), ...this.splitString(this.postForm.value.content)] combine all fields tgt
       keywords: this.splitString(this.postForm.value.title),
     };
-
-
-
     // console.log(postData);
     console.log(this.selectedImg, 'hello');
     
