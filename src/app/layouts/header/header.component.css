@@ -1,0 +1,13 @@
+header {
+  height: 100px;
+}
+header a {
+  text-decoration: none;
+}
+header .site-logo {
+  font-size: 1.5em;
+}
+header .ml-4 {
+  margin-right: 10px;
+  color: var(--body-text-color);
+}/*# sourceMappingURL=header.component.css.map */

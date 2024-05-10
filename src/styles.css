@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200&display=swap");
-// @import '~ngx-toastr/toastr';
-
 :root {
   --primary-color: #026467;
   --secondary-color: #e5f5ea;
@@ -25,35 +22,38 @@ body {
   text-decoration: none;
   text-transform: uppercase;
 }
+
 .nav-link {
   color: var(--primary-color);
 }
+
 .shadow-effect {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
   border: none;
 }
 
 .bg-theme {
   background-color: var(--primary-color);
 }
+
 .bg-secondary-theme {
-  background-color: var(--secondary-color) !important; 
+  background-color: var(--secondary-color) !important;
 }
+
 .text-theme-primry {
   color: var(--primary-color);
 }
+
 .btn-theme {
-  // width: 160px;
   height: 36px;
   border: none;
   font-size: 16px;
   color: aliceblue !important;
   background-color: #026467 !important;
 }
+
 .logo-text {
   font-size: 14px;
   color: var(--primary-color);
   margin-top: 5px; /* Adjust as needed */
-}
-
+}/*# sourceMappingURL=styles.css.map */
